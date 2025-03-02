@@ -1,10 +1,31 @@
+import { useRef, useState } from "react";
 import "./estilos.css";
+import { useAdicionarParticipante } from "../../state/hook/useAdicionarParticipante";
 
 const Formulario = () => {
+  const [nome, setNome] = useState("");
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const adicionarNaLista = useAdicionarParticipante();
+
+  const adicionarParticipante = (evento: React.FormEvent<HTMLFormElement>) => {
+    evento.preventDefault();
+    adicionarNaLista(nome);
+    setNome("");
+    inputRef.current?.focus();
+  };
+
   return (
-    <form className="formulario">
-      <input type="text" placeholder="Insira os nomes dos participantes" />
-      <button disabled={true}>Adicionar</button>
+    <form className="formulario" onSubmit={adicionarParticipante}>
+      <input
+        ref={inputRef}
+        value={nome}
+        onChange={(evento) => setNome(evento.target.value)}
+        type="text"
+        placeholder="Insira os nomes dos participantes"
+      />
+      <button disabled={!nome}>Adicionar</button>
     </form>
   );
 };
