@@ -1,4 +1,5 @@
 import { useListaDeParticipantes } from "../../state/hook/useListaDeParticipantes";
+import "./estilos.css";
 
 const ListaParticipantes = () => {
   const participantes: string[] = useListaDeParticipantes();
